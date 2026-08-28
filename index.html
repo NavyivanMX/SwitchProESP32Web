@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwitchProESP32 - Instalador Web</title>
+
+  <!--
+    ESP Web Tools: hace todo el trabajo de conectar por
+    WebSerial y grabar el .bin. No necesitas escribir nada de
+    esa logica a mano.
+  -->
+  <script
+    type="module"
+    src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+  ></script>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+      text-align: center;
+    }
+    h1 { font-size: 1.6rem; margin-bottom: 0.2rem; }
+    p.subtitle { color: #94a3b8; margin-top: 0; margin-bottom: 2rem; }
+    .card {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .requisitos {
+      text-align: left;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-top: 24px;
+      line-height: 1.5;
+    }
+    .requisitos b { color: #e2e8f0; }
+    esp-web-install-button {
+      --esp-tools-button-color: #38bdf8;
+    }
+    .no-support {
+      display: none;
+      background: #7f1d1d;
+      color: #fecaca;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-top: 16px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Navy SwitchPro</h1>
+    <p class="subtitle">Instalador de firmware para el controlador ESP32</p>
+
+    <esp-web-install-button manifest="./manifest.json">
+      <button slot="activate">Instalar firmware</button>
+      <span slot="unsupported">
+        Tu navegador no soporta Web Serial. Usa Chrome, Edge u Opera.
+      </span>
+      <span slot="not-allowed">
+        Esta página necesita HTTPS para poder conectarse al ESP32.
+      </span>
+    </esp-web-install-button>
+
+    <div class="requisitos">
+      <p><b>Antes de instalar:</b></p>
+      <ul>
+        <li>Usa Chrome, Edge u Opera (de escritorio).</li>
+        <li>Conecta el ESP32 por USB antes de apretar el botón.</li>
+        <li>Si no aparece el puerto, instala el driver de tu chip USB-serie (CP2102 o CH340, según tu placa).</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

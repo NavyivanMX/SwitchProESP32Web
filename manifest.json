@@ -1,0 +1,12 @@
+{
+  "name": "SwitchProESP32",
+  "version": "1.0.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "firmware/switchpro-navy-merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}
