@@ -85,6 +85,31 @@
         <li>Si no aparece el puerto, instala el driver de tu chip USB-serie (CP2102 o CH340, según tu placa).</li>
       </ul>
     </div>
+    <div class="requisitos">
+      <p><b>Mejoras version 1.0.0:</b></p>
+      <ul>
+        <li>Version Inicial del binario.</li>
+        <li>Se puede invertir los ejes XY de los joysticks, es decir, cuando presionabas hacia arriba se detectaba que iba hacia abajo y viceversa, lo mismo con derecha e izquierda.</li>
+        <li>Para invertir los ejes.</li>
+        <li>Plus + X  -> invierte el eje X del stick IZQUIERDO</li>
+        <li>Plus + Y  -> invierte el eje Y del stick IZQUIERDO</li>
+        <li>Plus + A  -> invierte el eje X del stick DERECHO</li>
+        <li>Plus + B  -> invierte el eje Y del stick DERECHO</li>
+        <li>Cada combinacion actua UNA vez por pulsacion (no hace falta
+            soltar y volver a presionar rapido; con mantenerlos juntos
+            un instante alcanza, no sigue alternando mientras los
+            mantengas apretados).</li>
+      </ul>
+    </div>
+      <div class="requisitos">
+      <p><b>Mejoras version 1.0.1:</b></p>
+      <ul>
+        <li>Se desactiva el boton fisico para Captura.</li>
+        <li>Se activa a un pin funcional el boton L3 (antes no funcionaba).</li>
+        <li>Se agrega combinacion Boton Plus (+) y L3 para activar la captura.</li>
+        <li>Se puede calibrar el rango fisico del Joystick, (cuando no alcanza a llegar a la orilla en la pantalla de calibracion). La forma de calibrarlo es: Se mantiene el stick al fondo de esa direccion (UDLR), y presionando el boton + y el DPad en esa direccion (la misma que el stick), se tomara como valor maximo y se autocalibrara. Repetir los pasos para el stick Derecho, pero esta vez usando el boton Menos (-). .</li>
+      </ul>
+    </div>
   </div>
 
 </body>
