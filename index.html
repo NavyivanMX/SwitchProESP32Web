@@ -271,7 +271,35 @@
     <details>
       <summary>Controles y Configuraciones</summary>
       <div class="panel-content">
-        
+
+        <div class="version-block">
+          <div class="version-title">Mapeo de botones</div>
+          <ul>
+              <li><b>BTN A</b> ➔ GPIO 4</li>
+              <li><b>BTN B</b> ➔ GPIO 13</li>
+              <li><b>BTN X</b> ➔ GPIO 23</li>
+              <li><b>BTN Y</b> ➔ GPIO 22</li>
+              <li><b>BTN L</b> ➔ GPIO 18</li>
+              <li><b>BTN R</b> ➔ GPIO 19</li>
+              <li><b>BTN ZL</b> ➔ GPIO 5</li>
+              <li><b>BTN ZR</b> ➔ GPIO 14</li>
+              <li><b>BTN PLUS</b> ➔ GPIO 17</li>
+              <li><b>BTN MINUS</b> ➔ GPIO 16</li>
+              <li><b>BTN HOME</b> ➔ GPIO 25</li>
+              <li><b>BTN CAPTURE</b> ➔ N/A</li>
+                        <p style="font-size: 0.8rem; color: #64748b; margin-top: 8px; font-style: italic; margin-bottom: 0;">
+                      * Sin pin fisico -- ver combo Plus+L3.
+                    </p>   
+              <li><b>BTN LSTICK</b> ➔ GPIO 0</li>
+              <li><b>BTN RSTICK</b> ➔ GPIO 32</li>
+              <li><b>BTN DPAD_UP</b> ➔ GPIO 21</li>
+              <li><b>BTN DPAD_DOWN</b> ➔ GPIO 27</li>
+              <li><b>BTN DPAD_LEFT</b> ➔ GPIO 26</li>
+              <li><b>BTN DPAD_RIGHT</b> ➔ GPIO 15</li>
+                      
+          </ul>
+        </div>
+
         <div class="version-block">
           <div class="version-title">Invertir Ejes de los Joysticks (XY)</div>
           <ul>
@@ -285,6 +313,19 @@
           </p>
         </div>
 
+        <div class="version-block">
+          <div class="version-title">Zona muerta (deadzone)</div>
+          <ul>
+            <li><b>Minus + X</b> ➔ Sube la zona muerta del stick IZQUIERDO</li>
+            <li><b>Minus + Y</b> ➔ Baja la zona muerta del stick IZQUIERDO</li>
+            <li><b>Minus + A</b> ➔ Sube la zona muerta del stick DERECHO</li>
+            <li><b>Minus + B</b> ➔ Baja la zona muerta del stick DERECHO</li>
+          </ul>
+          <p style="font-size: 0.8rem; color: #64748b; margin-top: 8px; font-style: italic; margin-bottom: 0;">
+            * Cada pulsacion de la combinacion cambia el valor en pasos de kStickDeadzoneStep.
+          </p>
+        </div>
+        
         <div class="version-block" style="margin-top: 20px;">
           <div class="version-title">Calibración Física del Joystick</div>
           <p style="margin: 0 0 8px 0;">Si el stick no alcanza a llegar a la orilla en la pantalla de calibración:</p>
@@ -294,6 +335,28 @@
           </ul>
         </div>
 
+        <div class="version-block" style="margin-top: 20px;">
+          <div class="version-title">Configuración de Rumble (beta)</div>
+          <p style="margin: 0 0 8px 0;">Con esos tres componentes (motor 5V, transistor J3Y y resistencia de 1kΩ) se arma un "interruptor de bajo lado" clásico con NPN. Un par de aclaraciones antes del diagrama::</p>
+          <ul>
+            <li><b>"J3Y" es el código de marcado</b> de un transistor NPN pequeño tipo 2N3904 (encapsulado SOT-23, 3 patas). El orden de patas típico en SOT-23 es E-B-C de izquierda a derecha viendo la cara marcada hacia ti, con las patas hacia abajo — pero varía según el fabricante, así que si tienes duda, confírmalo con un multímetro en modo diodo antes de soldar.</li>
+            <li><b>Te recomiendo agregar un diodo</b> en paralelo con el motor (aunque no lo hayas mencionado) — un motor es una carga inductiva y al apagarse genera un pico de voltaje inverso que puede dañar el transistor. Con un 1N4148 o 1N4007 que tengas a la mano alcanza.</b>.</li>
+          </ul>
+        </div>   
+        <div class="version-block" style="margin-top: 20px;">
+          <div class="version-title">Lista de conexiones, punto por punto:</div>
+
+          <ul>
+            <li><b>GPIO12 del ESP32 →</b> una pata de la resistencia de 1kΩ.</li>
+            <li>Otra pata de la resistencia →<b>Base (B)</b> del transistor.</li>
+            <li><b>Emisor (E)</b> del transistor → GND (el mismo GND del ESP32).</li>
+            <li><b>Colector (C)</b> del transistor → terminal negativo del motor.</li>
+            <li>Terminal positivo del motor →<b>+5V</b>.</li>
+            <li>iodo en paralelo con el motor: cátodo (la banda) hacia el <b>+5V</b>, ánodo hacia el colector — así absorbe el pico inverso cuando el transistor corta la corriente.</li>
+            <li><b>GND común obligatorio:</b> el GND del ESP32, el emisor del transistor y el GND de tu fuente de 5V (si es externa) tienen que estar todos unidos entre sí, o el circuito no cierra.</li>            
+          </ul>
+        </div>            
+        
       </div>
     </details>
 
