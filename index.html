@@ -1,116 +1,264 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SwitchProESP32 - Instalador Web</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navy SwitchPro - Instalador Web</title>
+    <style>
+        :root {
+            --primary-color: #007acc;
+            --primary-hover: #005999;
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e1e4e8;
+        }
 
-  <!--
-    ESP Web Tools: hace todo el trabajo de conectar por
-    WebSerial y grabar el .bin. No necesitas escribir nada de
-    esa logica a mano.
-  -->
-  <script
-    type="module"
-    src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
-  ></script>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
 
-  <style>
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 24px;
-      text-align: center;
-    }
-    h1 { font-size: 1.6rem; margin-bottom: 0.2rem; }
-    p.subtitle { color: #94a3b8; margin-top: 0; margin-bottom: 2rem; }
-    .card {
-      background: #1e293b;
-      border-radius: 16px;
-      padding: 32px;
-      max-width: 480px;
-      width: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .requisitos {
-      text-align: left;
-      font-size: 0.9rem;
-      color: #94a3b8;
-      margin-top: 24px;
-      line-height: 1.5;
-    }
-    .requisitos b { color: #e2e8f0; }
-    esp-web-install-button {
-      --esp-tools-button-color: #38bdf8;
-    }
-    .no-support {
-      display: none;
-      background: #7f1d1d;
-      color: #fecaca;
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin-top: 16px;
-      font-size: 0.85rem;
-    }
-  </style>
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* --- BOTÓN MEJORADO --- */
+        .btn-install {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 6px rgba(0, 122, 204, 0.3);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn-install:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-install:active {
+            transform: scale(0.98);
+        }
+
+        .browser-warning {
+            font-size: 0.85rem;
+            color: #d93025;
+            background-color: #fce8e6;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* --- NOTAS PREVIAS --- */
+        .pre-install-notes {
+            background-color: #f8f9fa;
+            border-left: 4px solid #ffa000;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 25px 0;
+        }
+
+        .pre-install-notes h3 {
+            margin-top: 0;
+            color: #b36f00;
+            font-size: 1rem;
+        }
+
+        .pre-install-notes ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        /* --- PANELES DESPLEGABLES (ACORDEÓN) --- */
+        details {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+
+        details[open] {
+            border-color: var(--primary-color);
+        }
+
+        summary {
+            padding: 14px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            outline: none;
+            user-select: none;
+            background-color: #fafafa;
+        }
+
+        /* Flecha indicadora personalizada */
+        summary::after {
+            content: "➔";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.2s ease;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        details[open] summary::after {
+            transform: translateY(-50%) rotate(90deg);
+            color: var(--primary-color);
+        }
+
+        summary:hover {
+            background-color: #f0f4f8;
+        }
+
+        .panel-content {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
+            background-color: #fff;
+        }
+
+        .version-block {
+            margin-bottom: 15px;
+        }
+
+        .version-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .version-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .panel-content ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .panel-content li {
+            margin-bottom: 6px;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="card">
+<div class="container">
     <h1>Navy SwitchPro</h1>
-    <p class="subtitle">Instalador de firmware para el controlador ESP32</p>
+    <div class="subtitle">Instalador de firmware para el controlador ESP32</div>
 
-    <esp-web-install-button manifest="./manifest.json">
-      <button slot="activate">Instalar firmware</button>
-      <span slot="unsupported">
-        Tu navegador no soporta Web Serial. Usa Chrome, Edge u Opera.
-      </span>
-      <span slot="not-allowed">
-        Esta página necesita HTTPS para poder conectarse al ESP32.
-      </span>
-    </esp-web-install-button>
+    <!-- Sección del Botón -->
+    <button class="btn-install" id="installBtn">Instalar firmware</button>
+    <div class="browser-warning">
+        Tu navegador no soporta Web Serial. Usa Chrome, Edge u Opera. Esta página necesita HTTPS para poder conectarse al ESP32.
+    </div>
 
-    <div class="requisitos">
-      <p><b>Antes de instalar:</b></p>
-      <ul>
-        <li>Usa Chrome, Edge u Opera (de escritorio).</li>
-        <li>Conecta el ESP32 por USB antes de apretar el botón.</li>
-        <li>Si no aparece el puerto, instala el driver de tu chip USB-serie (CP2102 o CH340, según tu placa).</li>
-      </ul>
+    <!-- Notas antes de instalar -->
+    <div class="pre-install-notes">
+        <h3>Antes de instalar:</h3>
+        <ul>
+            <li>Usa Chrome, Edge u Opera (de escritorio).</li>
+            <li>Conecta el ESP32 por USB antes de apretar el botón.</li>
+            <li>Si no aparece el puerto, instala el driver de tu chip USB-serie (CP2102 o CH340, según tu placa).</li>
+        </ul>
     </div>
-    <div class="requisitos">
-      <p><b>Mejoras version 1.0.0:</b></p>
-      <ul>
-        <li>Version Inicial del binario.</li>
-        <li>Se puede invertir los ejes XY de los joysticks, es decir, cuando presionabas hacia arriba se detectaba que iba hacia abajo y viceversa, lo mismo con derecha e izquierda.</li>
-        <li>Para invertir los ejes.</li>
-        <li>Plus + X  -> invierte el eje X del stick IZQUIERDO</li>
-        <li>Plus + Y  -> invierte el eje Y del stick IZQUIERDO</li>
-        <li>Plus + A  -> invierte el eje X del stick DERECHO</li>
-        <li>Plus + B  -> invierte el eje Y del stick DERECHO</li>
-        <li>Cada combinacion actua UNA vez por pulsacion (no hace falta
-            soltar y volver a presionar rapido; con mantenerlos juntos
-            un instante alcanza, no sigue alternando mientras los
-            mantengas apretados).</li>
-      </ul>
-    </div>
-      <div class="requisitos">
-      <p><b>Mejoras version 1.0.1:</b></p>
-      <ul>
-        <li>Se desactiva el boton fisico para Captura.</li>
-        <li>Se activa a un pin funcional el boton L3 (antes no funcionaba).</li>
-        <li>Se agrega combinacion Boton Plus (+) y L3 para activar la captura.</li>
-        <li>Se puede calibrar el rango fisico del Joystick, (cuando no alcanza a llegar a la orilla en la pantalla de calibracion). La forma de calibrarlo es: Se mantiene el stick al fondo de esa direccion (UDLR), y presionando el boton + y el DPad en esa direccion (la misma que el stick), se tomara como valor maximo y se autocalibrara. Repetir los pasos para el stick Derecho, pero esta vez usando el boton Menos (-). .</li>
-      </ul>
-    </div>
-  </div>
+
+    <!-- Panel Desplegable 1: Versiones -->
+    <details>
+        <summary>Historial de Versiones</summary>
+        <div class="panel-content">
+            
+            <div class="version-block">
+                <div class="version-title">Mejoras version 1.0.1</div>
+                <ul>
+                    <li>Se desactiva el botón físico para Captura.</li>
+                    <li>Se activa a un pin funcional el botón L3 (antes no funcionaba).</li>
+                    <li>Se agrega combinación Botón Plus (+) y L3 para activar la captura.</li>
+                    <li>Se puede calibrar el rango físico del Joystick (cuando no alcanza a llegar a la orilla en la pantalla de calibración).</li>
+                </ul>
+            </div>
+
+            <div class="version-block" style="margin-top: 20px;">
+                <div class="version-title">Mejoras version 1.0.0</div>
+                <ul>
+                    <li>Versión Inicial del binario.</li>
+                    <li>Se pueden invertir los ejes XY de los joysticks (cuando presionabas hacia arriba se detectaba hacia abajo y viceversa).</li>
+                </ul>
+            </div>
+
+        </div>
+    </details>
+
+    <!-- Panel Desplegable 2: Configuraciones -->
+    <details>
+        <summary>Controles y Configuraciones</summary>
+        <div class="panel-content">
+            
+            <div class="version-block">
+                <div class="version-title">Invertir Ejes de los Joysticks</div>
+                <ul>
+                    <li><strong>Plus + X:</strong> Invierte el eje X del stick IZQUIERDO</li>
+                    <li><strong>Plus + Y:</strong> Invierte el eje Y del stick IZQUIERDO</li>
+                    <li><strong>Plus + A:</strong> Invierte el eje X del stick DERECHO</li>
+                    <li><strong>Plus + B:</strong> Invierte el eje Y del stick DERECHO</li>
+                </ul>
+                <p style="font-size: 0.85rem; color: #666; margin-top: 5px; font-style: italic;">
+                    * Cada combinación actúa UNA vez por pulsación. Basta con mantenerlos juntos un instante.
+                </p>
+            </div>
+
+            <div class="version-block" style="margin-top: 20px;">
+                <div class="version-title">Calibración Física del Joystick</div>
+                <p style="margin: 5px 0; font-size: 0.95rem;">Para cuando el stick no alcanza a llegar a la orilla en la pantalla de calibración:</p>
+                <ul>
+                    <li><strong>Stick Izquierdo:</strong> Mantén el stick al fondo de esa dirección (UDLR) y presiona el botón <strong>Plus (+)</strong> junto con el DPad en esa misma dirección.</li>
+                    <li><strong>Stick Derecho:</strong> Repite los mismos pasos, pero esta vez usando el botón <strong>Menos (-)</strong>.</li>
+                </ul>
+            </div>
+
+        </div>
+    </details>
+</div>
 
 </body>
 </html>
