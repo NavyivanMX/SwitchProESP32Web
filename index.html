@@ -245,7 +245,15 @@
     <details>
       <summary>Historial de Versiones</summary>
       <div class="panel-content">
-        
+        <div class="version-block">
+          <div class="version-title">Mejoras versión 1.0.2</div>
+          <ul>
+            <li>Se ajustaron algunos pin y botones (ver Controles y Configuraciones).</li>  
+            <li>Se vuelve a activar el botón de Captura.</li>           
+            <li>Se quita combinación Botón Plus (+) y L3 para activar la captura, ya no es necesaria.</li>
+            <li>Sigue en desarrollo el rumble (sin testear).</li>
+          </ul>
+        </div>
         <div class="version-block">
           <div class="version-title">Mejoras versión 1.0.1</div>
           <ul>
@@ -275,29 +283,34 @@
         <div class="version-block">
           <div class="version-title">Mapeo de botones</div>
           <ul>
-              <li><b>BTN A</b> ➔ GPIO 4</li>
-              <li><b>BTN B</b> ➔ GPIO 13</li>
-              <li><b>BTN X</b> ➔ GPIO 23</li>
-              <li><b>BTN Y</b> ➔ GPIO 22</li>
-              <li><b>BTN L</b> ➔ GPIO 18</li>
-              <li><b>BTN R</b> ➔ GPIO 19</li>
-              <li><b>BTN ZL</b> ➔ GPIO 5</li>
-              <li><b>BTN ZR</b> ➔ GPIO 14</li>
-              <li><b>BTN PLUS</b> ➔ GPIO 17</li>
-              <li><b>BTN MINUS</b> ➔ GPIO 16</li>
-              <li><b>BTN HOME</b> ➔ GPIO 25</li>
-              <li><b>BTN CAPTURE</b> ➔ N/A</li>
-                        <p style="font-size: 0.8rem; color: #64748b; margin-top: 8px; font-style: italic; margin-bottom: 0;">
-                      * Sin pin fisico -- ver combo Plus+L3.
-                    </p>   
-              <li><b>BTN LSTICK</b> ➔ GPIO 0</li>
-              <li><b>BTN RSTICK</b> ➔ GPIO 32</li>
-              <li><b>BTN DPAD_UP</b> ➔ GPIO 21</li>
-              <li><b>BTN DPAD_DOWN</b> ➔ GPIO 27</li>
-              <li><b>BTN DPAD_LEFT</b> ➔ GPIO 26</li>
-              <li><b>BTN DPAD_RIGHT</b> ➔ GPIO 15</li>
-                      
+            <li><b>A</b> ➔ 	GPIO12	</li>
+            <li><b>B</b> ➔ 	GPIO13	</li>
+            <li><b>X</b> ➔ 	GPIO23	</li>
+            <li><b>Y</b> ➔ 	GPIO22</li>
+            <li><b>L</b> ➔ 	GPIO18	</li>
+            <li><b>R</b> ➔ 	GPIO19	</li>
+            <li><b>ZL</b> ➔ 	GPIO5	</li>
+            <li><b>ZR</b> ➔ 	GPIO15	</li>
+            <li><b>Plus</b> ➔ 	GPIO17	</li>
+            <li><b>Minus</b> ➔ 	GPIO16	</li>
+            <li><b>Home</b> ➔ 	GPIO21</li>
+            <li><b>Capture</b> ➔ 	GPIO32	Único pin del par RF-sensible que usamos — ver nota abajo</li>
+            <li><b>D-Pad Arriba</b> ➔ 	GPIO14</li>
+            <li><b>D-Pad Abajo</b> ➔ GPIO27</li>
+            <li><b>D-Pad Izquierda</b> ➔ GPIO26</li>
+            <li><b>D-Pad Derecha</b> ➔ GPIO25</li>
+            <li><b>L3</b> ➔ 	GPIO2	</li>
+            <li><b>R3</b> ➔ 	GPIO4</li>
+            <li><b>Rumble</b> ➔ 	GPIO0</li>
+            <li><b>LX</b> ➔ 	GPIO39 (VN)</li>
+            <li><b>LY</b> ➔ 	GPIO36 (VP)</li>
+            <li><b>RX</b> ➔ 	GPIO34</li>
+            <li><b>RY</b> ➔ 	GPIO35</li>
+            <li><b>(libre)	GPIO33	Queda de repuesto</li>
           </ul>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 8px; font-style: italic; margin-bottom: 0;">
+            * Captura (el boton que menos se usa) para minimizar el impacto si llega a pasar. Mitigaciones ya probadas si hace falta: capacitor de desacople (~100nF) cerca del pin.
+          </p>
         </div>
 
         <div class="version-block">
@@ -347,7 +360,7 @@
           <div class="version-title">Lista de conexiones, punto por punto:</div>
 
           <ul>
-            <li><b>GPIO12 del ESP32 →</b> una pata de la resistencia de 1kΩ.</li>
+            <li><b>GPIO0 del ESP32 →</b> una pata de la resistencia de 1kΩ.</li>
             <li>Otra pata de la resistencia →<b>Base (B)</b> del transistor.</li>
             <li><b>Emisor (E)</b> del transistor → GND (el mismo GND del ESP32).</li>
             <li><b>Colector (C)</b> del transistor → terminal negativo del motor.</li>
@@ -360,6 +373,159 @@
       </div>
     </details>
 
+
+    <!-- PANEL DESPLEGABLE 3: FAQS -->
+    <details>
+      <summary>Preguntas Frecuentes</summary>
+      <div class="panel-content">
+        <div class="version-block">
+          <div class="version-title">FAQS</div>
+          <p style="font-size: 1rem; color: #64748b; margin-top: 8px; font-style: italic; margin-bottom: 0;">
+            * Se puede cambiar el color de control?
+          </p>
+          <ul>
+            <li>De momento este binario trae los colores por defecto de Navysoluciones, si deseas personalizarlos, puedes contactar con nosotros.</li>            
+          </ul>
+          <p style="font-size: 1rem; color: #64748b; margin-top: 8px; font-style: italic; margin-bottom: 0;">
+            * Cuando estara listo el rumble?
+          </p>
+          <ul>
+            <li>Actualmente esta en una version beta, por lo que al conectar debiera vibrar, faltan mas pruebas unitarias, ajustes y calibracion.</li>            
+          </ul>
+          <p style="font-size: 1rem; color: #64748b; margin-top: 8px; font-style: italic; margin-bottom: 0;">
+            * Es compatible con BluRetro?
+          </p>
+          <ul>
+            <li>Respuesta corta: No, aún no es compatible con BluRetro. La idea principal es modificar controles no nativos con Nintendo(R) Swtich, resolviendo los detalles principales de los sticks y hacerlo compatible con rumble, pero no se descarta en algun futuro implementarlo si se sigue apoyando este proyecto.</li>            
+          </ul>          
+        </div>        
+      </div>
+    </details>
+    <!-- PANEL DESPLEGABLE 4: Donaciones y apoyos -->
+   <details >
+  <summary>Donaciones y Apoyos</summary>
+  <div class="panel-content">
+    <div class="donation-card">
+      <div class="donation-icon">☕</div>
+      <div class="donation-info">
+        <h3 class="donation-title">¡Invítame un café!</h3>
+        <p class="donation-subtitle">Buy me a coffee via PayPal</p>
+      </div>
+      <a href="https://www.paypal.com/donate/?hosted_button_id=4SB5BX42TPGBJ" target="_blank" class="donation-btn">
+        <span>Donar ahora</span>
+        <svg xmlns="http://w3.org" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</details>
+
+<style>
+  /* Estilos para el contenedor desplegable */
+  .custom-details {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .custom-summary {
+    font-weight: 600;
+    color: #1a202c;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+  }
+
+  .panel-content {
+    margin-top: 16px;
+  }
+
+  /* Tarjeta de Donación */
+  .donation-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    border: 1px solid #edf2f7;
+    border-radius: 10px;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .donation-icon {
+    font-size: 28px;
+    background: #fef3c7;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .donation-info {
+    flex-grow: 1;
+  }
+
+  .donation-title {
+    margin: 0;
+    font-size: 16px;
+    color: #2d3748;
+    font-weight: 600;
+  }
+
+  .donation-subtitle {
+    margin: 4px 0 0 0;
+    font-size: 13px;
+    color: #718096;
+  }
+
+  /* El Botón "Nice" de PayPal */
+  .donation-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #0070ba; /* Azul oficial de PayPal */
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 20px; /* Bordes redondeados estilo PayPal */
+    box-shadow: 0 4px 12px rgba(0, 112, 186, 0.2);
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+  }
+
+  /* Efecto al pasar el cursor */
+  .donation-btn:hover {
+    background-color: #005ea6;
+    box-shadow: 0 6px 16px rgba(0, 112, 186, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* Efecto al hacer clic */
+  .donation-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(0, 112, 186, 0.2);
+  }
+
+  /* Adaptabilidad para pantallas móviles pequeñas */
+  @media (max-width: 480px) {
+    .donation-card {
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+    }
+    .donation-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
   </div>
 
 </body>
