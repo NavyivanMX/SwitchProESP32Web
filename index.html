@@ -12,6 +12,91 @@
   ></script>
 
   <style>
+      .panel-content {
+    margin-top: 16px;
+  }
+
+  /* Tarjeta de Donación */
+  .donation-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    border: 1px solid #edf2f7;
+    border-radius: 10px;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .donation-icon {
+    font-size: 28px;
+    background: #fef3c7;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .donation-info {
+    flex-grow: 1;
+  }
+
+  .donation-title {
+    margin: 0;
+    font-size: 16px;
+    color: #2d3748;
+    font-weight: 600;
+  }
+
+  .donation-subtitle {
+    margin: 4px 0 0 0;
+    font-size: 13px;
+    color: #718096;
+  }
+
+  /* El Botón "Nice" de PayPal */
+  .donation-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #0070ba; /* Azul oficial de PayPal */
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 20px; /* Bordes redondeados estilo PayPal */
+    box-shadow: 0 4px 12px rgba(0, 112, 186, 0.2);
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+  }
+
+  /* Efecto al pasar el cursor */
+  .donation-btn:hover {
+    background-color: #005ea6;
+    box-shadow: 0 6px 16px rgba(0, 112, 186, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* Efecto al hacer clic */
+  .donation-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(0, 112, 186, 0.2);
+  }
+
+  /* Adaptabilidad para pantallas móviles pequeñas */
+  @media (max-width: 480px) {
+    .donation-card {
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+    }
+    .donation-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
     :root {
       --primary-color: #38bdf8;
       --primary-hover: #0ea5e9;
@@ -421,111 +506,6 @@
   </div>
 </details>
 
-<style>
-  /* Estilos para el contenedor desplegable */
-  .custom-details {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 12px 16px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-
-  .custom-summary {
-    font-weight: 600;
-    color: #1a202c;
-    cursor: pointer;
-    outline: none;
-    user-select: none;
-  }
-
-  .panel-content {
-    margin-top: 16px;
-  }
-
-  /* Tarjeta de Donación */
-  .donation-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #f8fafc;
-    border: 1px solid #edf2f7;
-    border-radius: 10px;
-    padding: 16px;
-    gap: 16px;
-  }
-
-  .donation-icon {
-    font-size: 28px;
-    background: #fef3c7;
-    padding: 8px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .donation-info {
-    flex-grow: 1;
-  }
-
-  .donation-title {
-    margin: 0;
-    font-size: 16px;
-    color: #2d3748;
-    font-weight: 600;
-  }
-
-  .donation-subtitle {
-    margin: 4px 0 0 0;
-    font-size: 13px;
-    color: #718096;
-  }
-
-  /* El Botón "Nice" de PayPal */
-  .donation-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background-color: #0070ba; /* Azul oficial de PayPal */
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 10px 20px;
-    border-radius: 20px; /* Bordes redondeados estilo PayPal */
-    box-shadow: 0 4px 12px rgba(0, 112, 186, 0.2);
-    transition: all 0.2s ease-in-out;
-    white-space: nowrap;
-  }
-
-  /* Efecto al pasar el cursor */
-  .donation-btn:hover {
-    background-color: #005ea6;
-    box-shadow: 0 6px 16px rgba(0, 112, 186, 0.3);
-    transform: translateY(-1px);
-  }
-
-  /* Efecto al hacer clic */
-  .donation-btn:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 8px rgba(0, 112, 186, 0.2);
-  }
-
-  /* Adaptabilidad para pantallas móviles pequeñas */
-  @media (max-width: 480px) {
-    .donation-card {
-      flex-direction: column;
-      text-align: center;
-      align-items: center;
-    }
-    .donation-btn {
-      width: 100%;
-      justify-content: center;
-    }
-  }
-</style>
   </div>
 
 </body>
